@@ -4,6 +4,10 @@ using namespace std;
 
 Eye::Eye(cv_image<bgr_pixel> frame, full_object_detection landmarks, int side, Calibration calibration)
 {
+	this->frame = frame;
+	this->landmarks = landmarks;
+	this->calibration = calibration;
+	analyze(frame, landmarks, side, calibration);
 }
 
 Eye::Eye()
@@ -14,6 +18,12 @@ Eye::Eye()
 double Eye::middle_point(long a, long b)
 {
 	return (double)((a + b) / 2);
+}
+
+void Eye::isolate(cv_image<bgr_pixel> frame, full_object_detection landmarks, int inputs[6])
+{
+	//auto height = frame
+	
 }
 
 
@@ -52,6 +62,7 @@ void Eye::analyze(cv_image<bgr_pixel> frame, full_object_detection landmarks, in
 			return;
 	}
 	blinking = blinking_ratio(landmarks, points);
+	isolate(frame, landmarks, points);
 }
 
 

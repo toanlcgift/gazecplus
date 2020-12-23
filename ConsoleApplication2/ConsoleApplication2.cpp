@@ -29,6 +29,7 @@
 
 #include <dlib/opencv.h>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <dlib/image_processing/frontal_face_detector.h>
 #include <dlib/image_processing/render_face_detections.h>
 #include <dlib/image_processing.h>
@@ -43,12 +44,12 @@ int main()
 	try
 	{
 		GazeTracking gaze;
-		cv::VideoCapture cap(0);
+		/*cv::VideoCapture cap(0);
 		if (!cap.isOpened())
 		{
 			cerr << "Unable to connect to camera" << endl;
 			return 1;
-		}
+		}*/
 
 		image_window win;
 
@@ -62,10 +63,14 @@ int main()
 		{
 			// Grab a frame
 			cv::Mat temp;
-			if (!cap.read(temp))
+			/*if (!cap.read(temp))
 			{
 				break;
-			}
+			}*/
+			temp = cv::imread("trump.jpg", 1);
+			//cv::Mat frame;
+			//cv::cvtColor(temp, frame, cv::COLOR_BGR2GRAY);
+			
 			// Turn OpenCV's Mat into something dlib can deal with.  Note that this just
 			// wraps the Mat object, it doesn't copy anything.  So cimg is only valid as
 			// long as temp is valid.  Also don't do anything to temp that would cause it
@@ -73,6 +78,12 @@ int main()
 			// contain dangling pointers.  This basically means you shouldn't modify temp
 			// while using cimg.
 			cv_image<bgr_pixel> cimg(temp);
+
+			auto frameWidth = temp.size().width;
+			auto frameHeight = temp.size().height;
+
+			auto rows = cimg.nr();
+			auto col = cimg.nc();
 
 			// Detect faces 
 			std::vector<rectangle> faces = detector(cimg);

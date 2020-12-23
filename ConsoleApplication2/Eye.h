@@ -15,8 +15,11 @@ private:
 	int rightpoints[6] = { 42, 43, 44, 45, 46, 47 };
 	int points[6];
 	double blinking;
+	cv_image<bgr_pixel> frame;
+	full_object_detection landmarks;
+	Calibration calibration;
+	void isolate(cv_image<bgr_pixel> frame, full_object_detection landmarks, int inputs[6]);
 	double middle_point(long a, long b);
 	void analyze(cv_image<bgr_pixel> frame, full_object_detection landmarks, int side, Calibration calibration);
 	double blinking_ratio(full_object_detection landmarks, int inputs[6]);
-	
 };
