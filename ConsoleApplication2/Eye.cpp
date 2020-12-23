@@ -1,4 +1,5 @@
 #include "Eye.h"
+#include <opencv2/highgui/highgui.hpp>
 
 using namespace std;
 
@@ -22,8 +23,10 @@ double Eye::middle_point(long a, long b)
 
 void Eye::isolate(cv_image<bgr_pixel> frame, full_object_detection landmarks, int inputs[6])
 {
-	//auto height = frame
-	
+	auto height = frame.nr();
+	auto width = frame.nc();
+	cv::Mat black_image(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
+	cv::Mat full_img(height, width, CV_8UC3, cv::Scalar(255, 255, 255));
 }
 
 

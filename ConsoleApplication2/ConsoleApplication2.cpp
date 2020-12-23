@@ -68,6 +68,7 @@ int main()
 				break;
 			}*/
 			temp = cv::imread("trump.jpg", 1);
+			
 			//cv::Mat frame;
 			//cv::cvtColor(temp, frame, cv::COLOR_BGR2GRAY);
 			
@@ -84,6 +85,9 @@ int main()
 
 			auto rows = cimg.nr();
 			auto col = cimg.nc();
+
+			/*cv::Mat full_img(rows, col, CV_8UC3, cv::Scalar(255,255,255));
+			cv_image<bgr_pixel> abc(full_img);*/
 
 			// Detect faces 
 			std::vector<rectangle> faces = detector(cimg);
