@@ -68,6 +68,8 @@ int main()
 				break;
 			}*/
 			temp = cv::imread("trump.jpg", 1);
+			cv::Mat output;
+			cv::cvtColor(temp, output, cv::COLOR_BGR2GRAY);
 			
 			//cv::Mat frame;
 			//cv::cvtColor(temp, frame, cv::COLOR_BGR2GRAY);
@@ -78,7 +80,9 @@ int main()
 			// to reallocate the memory which stores the image as that will make cimg
 			// contain dangling pointers.  This basically means you shouldn't modify temp
 			// while using cimg.
-			cv_image<bgr_pixel> cimg(temp);
+
+			cv_image<bgr_pixel> bgrimg(temp);
+			cv_image<unsigned char> cimg(output);
 
 			auto frameWidth = temp.size().width;
 			auto frameHeight = temp.size().height;
@@ -100,7 +104,7 @@ int main()
 			}
 			// Display it all on the screen
 			win.clear_overlay();
-			win.set_image(cimg);
+			win.set_image(bgrimg);
 			win.add_overlay(render_face_detections(shapes));
 		}
 	}

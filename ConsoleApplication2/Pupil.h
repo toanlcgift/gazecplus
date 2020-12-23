@@ -5,5 +5,5 @@ using namespace dlib;
 class Pupil
 {
 public:
-	Pupil(cv_image<bgr_pixel> eye_frame);
+	Pupil(cv_image<unsigned char> eye_frame);
 };

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Eye::Eye(cv_image<bgr_pixel> frame, full_object_detection landmarks, int side, Calibration calibration)
+Eye::Eye(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration)
 {
 	this->frame = frame;
 	this->landmarks = landmarks;
@@ -21,7 +21,7 @@ double Eye::middle_point(long a, long b)
 	return (double)((a + b) / 2);
 }
 
-void Eye::isolate(cv_image<bgr_pixel> frame, full_object_detection landmarks, int inputs[6])
+void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks, int inputs[6])
 {
 	auto height = frame.nr();
 	auto width = frame.nc();
@@ -52,7 +52,7 @@ double Eye::blinking_ratio(full_object_detection landmarks, int inputs[6])
 		return eye_width / eye_height;
 }
 
-void Eye::analyze(cv_image<bgr_pixel> frame, full_object_detection landmarks, int side, Calibration calibration)
+void Eye::analyze(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration)
 {
 	for (int i = 0; i < 6; i++) {
 		if (side == 0) {
