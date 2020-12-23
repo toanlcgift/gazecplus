@@ -143,6 +143,7 @@
     <ClCompile Include="ConsoleApplication2.cpp" />
     <ClCompile Include="Eye.cpp" />
     <ClCompile Include="GazeTracking.cpp" />
+    <ClCompile Include="Pupil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="shape_predictor_68_face_landmarks.dat">
@@ -159,6 +160,7 @@
     <ClInclude Include="Calibration.h" />
     <ClInclude Include="Eye.h" />
     <ClInclude Include="GazeTracking.h" />
+    <ClInclude Include="Pupil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
