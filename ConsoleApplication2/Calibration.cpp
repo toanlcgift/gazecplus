@@ -39,6 +39,7 @@ double Calibration::getSum(std::vector<double> input)
 	double sum_of_elems = 0;
 	for (std::vector<double>::iterator it = input.begin(); it != input.end(); ++it)
 		sum_of_elems += *it;
+	return sum_of_elems;
 }
 
 void Calibration::evaluate(cv::Mat frame, int side)
