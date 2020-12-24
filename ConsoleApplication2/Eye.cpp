@@ -1,5 +1,6 @@
 #include "Eye.h"
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 
 using namespace std;
 
@@ -26,7 +27,20 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 	auto height = frame.nr();
 	auto width = frame.nc();
 	cv::Mat black_image(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
-	cv::Mat full_img(height, width, CV_8UC3, cv::Scalar(255, 255, 255));
+	cv::Mat mask(height, width, CV_8UC3, cv::Scalar(255, 255, 255));
+
+
+	std::vector<std::vector<cv::Point>> imagePoints;
+	std::vector<cv::Point> points;
+
+	for (int i = 0; i < 6; i++) {
+		points.push_back(cv::Point(landmarks.part(inputs[i]).x(), landmarks.part(inputs[i]).y()));
+	}
+	imagePoints.push_back(points);
+	cv::fillPoly(mask, imagePoints, cv::Scalar(0, 0, 0));
+	cv::Mat eye;
+	cv::imwrite("output.png", mask);
+	//cv::bitwise_not(black_image,)
 }
 
 
