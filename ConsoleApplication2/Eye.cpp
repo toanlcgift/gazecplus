@@ -26,9 +26,8 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 {
 	auto height = frame.nr();
 	auto width = frame.nc();
-	cv::Mat black_image(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
-	cv::Mat mask(height, width, CV_8UC3, cv::Scalar(255, 255, 255));
-
+	cv::Mat black_image = cv::Mat::zeros(cv::Size(width, height), CV_8UC1);
+	cv::Mat mask(height, width, CV_8UC1, cv::Scalar(255, 255, 255));
 
 	std::vector<std::vector<cv::Point>> imagePoints;
 	std::vector<cv::Point> points;
@@ -38,9 +37,11 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 	}
 	imagePoints.push_back(points);
 	cv::fillPoly(mask, imagePoints, cv::Scalar(0, 0, 0));
+	cv::Mat frameCV;
+	frameCV = dlib::toMat(frame);
 	cv::Mat eye;
-	cv::imwrite("output.png", mask);
-	//cv::bitwise_not(black_image,)
+	frameCV.copyTo(eye);
+	cv::bitwise_not(black_image, eye, mask);
 }
 
 
