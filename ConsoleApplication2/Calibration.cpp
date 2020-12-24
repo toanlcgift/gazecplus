@@ -11,11 +11,15 @@ bool Calibration::is_complete()
 
 double Calibration::find_best_threshold(cv::Mat frame)
 {
+	double average_iris_size = 0.48;
 	return 0.0;
 }
 
 double Calibration::iris_size(cv::Mat frame)
 {
+
+	cv::Mat new_frame(frame, cv::Rect(cv::Point(5, 5), cv::Point(-5, -5)));
+	//cv::imwrite("new_frame.png",new_frame);
 	return 0.0;
 }
 
@@ -40,6 +44,12 @@ double Calibration::getSum(std::vector<double> input)
 void Calibration::evaluate(cv::Mat frame, int side)
 {
 	auto thresh_hold = find_best_threshold(frame);
-	double average_iris_size = 0.48;
+
+	if (side == 0) {
+		thresholds_left.push_back(thresh_hold);
+	}
+	else if (side == 1) {
+		thresholds_right.push_back(thresh_hold);
+	}
 }
 
