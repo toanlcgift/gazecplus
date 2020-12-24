@@ -49,11 +49,14 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 
 	long margin = 5;
 
-	long min_x = *std::min_element(xArrays.begin(), xArrays.end() - margin);
-	long max_x = *std::max_element(xArrays.begin(), xArrays.end()) + margin;
-	long min_y = *std::min_element(yArrays.begin(), yArrays.end() - margin);
-	long max_y = *std::max_element(yArrays.begin(), yArrays.end()) + margin;
+	long min_x = *min_element(xArrays.begin(), xArrays.end()) - margin;
+	long max_x = *max_element(xArrays.begin(), xArrays.end()) + margin;
+	long min_y = *min_element(yArrays.begin(), yArrays.end()) - margin;
+	long max_y = *max_element(yArrays.begin(), yArrays.end()) + margin;
 
+	cv::Mat cropped(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
+
+	cv::imwrite("cropped.png", cropped);
 }
 
 
