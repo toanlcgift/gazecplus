@@ -9,6 +9,10 @@ class Eye
 public:
 	Eye(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration); //size = 0 || 1
 	Eye();
+	long getOriginX();
+	long getOriginY();
+	double getCenterX();
+	double getCenterY();
 
 private:
 	int leftpoints[6] = { 36, 37, 38, 39, 40, 41 };
@@ -26,6 +30,4 @@ private:
 	double middle_point(long a, long b);
 	void analyze(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration);
 	double blinking_ratio(full_object_detection landmarks, int inputs[6]);
-	long getOriginX();
-	long getOriginY();
 };

@@ -3,3 +3,8 @@
 Calibration::Calibration()
 {
 }
+
+bool Calibration::is_complete()
+{
+	return false;
+}

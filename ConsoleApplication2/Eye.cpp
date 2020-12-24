@@ -78,6 +78,16 @@ long Eye::getOriginY()
 	return originY;
 }
 
+double Eye::getCenterX()
+{
+	return centerX;
+}
+
+double Eye::getCenterY()
+{
+	return centerY;
+}
+
 
 double Eye::blinking_ratio(full_object_detection landmarks, int inputs[6])
 {
@@ -115,6 +125,9 @@ void Eye::analyze(cv_image<unsigned char> frame, full_object_detection landmarks
 	}
 	blinking = blinking_ratio(landmarks, points);
 	isolate(frame, landmarks, points);
+	if (!calibration.is_complete()) {
+		//calibration.
+	}
 }
 
 
