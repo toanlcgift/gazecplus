@@ -10,6 +10,6 @@ private:
 	Eye eye_left = Eye();
 	Eye eye_right = Eye();
 	Calibration calibration;
-	cv_image<bgr_pixel> frame;
+	cv_image<unsigned char> frame;
 };
 

@@ -29,6 +29,7 @@
 
 #include <dlib/opencv.h>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <dlib/image_processing/frontal_face_detector.h>
 #include <dlib/image_processing/render_face_detections.h>
 #include <dlib/image_processing.h>
@@ -43,12 +44,12 @@ int main()
 	try
 	{
 		GazeTracking gaze;
-		cv::VideoCapture cap(0);
+		/*cv::VideoCapture cap(0);
 		if (!cap.isOpened())
 		{
 			cerr << "Unable to connect to camera" << endl;
 			return 1;
-		}
+		}*/
 
 		image_window win;
 
@@ -62,17 +63,35 @@ int main()
 		{
 			// Grab a frame
 			cv::Mat temp;
-			if (!cap.read(temp))
+			/*if (!cap.read(temp))
 			{
 				break;
-			}
+			}*/
+			temp = cv::imread("trump.jpg", 1);
+			cv::Mat output;
+			cv::cvtColor(temp, output, cv::COLOR_BGR2GRAY);
+			
+			//cv::Mat frame;
+			//cv::cvtColor(temp, frame, cv::COLOR_BGR2GRAY);
+			
 			// Turn OpenCV's Mat into something dlib can deal with.  Note that this just
 			// wraps the Mat object, it doesn't copy anything.  So cimg is only valid as
 			// long as temp is valid.  Also don't do anything to temp that would cause it
 			// to reallocate the memory which stores the image as that will make cimg
 			// contain dangling pointers.  This basically means you shouldn't modify temp
 			// while using cimg.
-			cv_image<bgr_pixel> cimg(temp);
+
+			cv_image<bgr_pixel> bgrimg(temp);
+			cv_image<unsigned char> cimg(output);
+
+			auto frameWidth = temp.size().width;
+			auto frameHeight = temp.size().height;
+
+			auto rows = cimg.nr();
+			auto col = cimg.nc();
+
+			/*cv::Mat full_img(rows, col, CV_8UC3, cv::Scalar(255,255,255));
+			cv_image<bgr_pixel> abc(full_img);*/
 
 			// Detect faces 
 			std::vector<rectangle> faces = detector(cimg);
@@ -85,7 +104,7 @@ int main()
 			}
 			// Display it all on the screen
 			win.clear_overlay();
-			win.set_image(cimg);
+			win.set_image(bgrimg);
 			win.add_overlay(render_face_detections(shapes));
 		}
 	}

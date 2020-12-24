@@ -27,6 +27,9 @@
     <ClCompile Include="GazeTracking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pupil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="trump.jpg">
@@ -44,6 +47,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GazeTracking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pupil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
