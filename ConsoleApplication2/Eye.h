@@ -26,6 +26,7 @@ private:
 	long originY;
 	double centerX;
 	double centerY;
+	cv::Mat eye_frame;
 	void isolate(cv_image<unsigned char> frame, full_object_detection landmarks, int inputs[6]);
 	double middle_point(long a, long b);
 	void analyze(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration);

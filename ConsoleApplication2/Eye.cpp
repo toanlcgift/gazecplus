@@ -54,13 +54,13 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 	long min_y = *min_element(yArrays.begin(), yArrays.end()) - margin;
 	long max_y = *max_element(yArrays.begin(), yArrays.end()) + margin;
 
-	cv::Mat cropped(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
+	cv::Mat eye_frame(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
 
 	originX = min_x;
 	originY = min_y;
 
-	auto croppedHeight = cropped.rows;
-	auto croppedWidth = cropped.cols;
+	auto croppedHeight = eye_frame.rows;
+	auto croppedWidth = eye_frame.cols;
 
 	centerX = (double)(croppedWidth / 2);
 	centerY = (double)(croppedHeight / 2);
@@ -126,7 +126,7 @@ void Eye::analyze(cv_image<unsigned char> frame, full_object_detection landmarks
 	blinking = blinking_ratio(landmarks, points);
 	isolate(frame, landmarks, points);
 	if (!calibration.is_complete()) {
-		//calibration.
+		calibration.evaluate(eye_frame, side);
 	}
 }
 
