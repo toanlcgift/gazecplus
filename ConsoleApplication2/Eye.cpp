@@ -56,7 +56,26 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 
 	cv::Mat cropped(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
 
-	cv::imwrite("cropped.png", cropped);
+	originX = min_x;
+	originY = min_y;
+
+	auto croppedHeight = cropped.rows;
+	auto croppedWidth = cropped.cols;
+
+	centerX = (double)(croppedWidth / 2);
+	centerY = (double)(croppedHeight / 2);
+
+	//cv::imwrite("cropped.png", cropped);
+}
+
+long Eye::getOriginX()
+{
+	return originX;
+}
+
+long Eye::getOriginY()
+{
+	return originY;
 }
 
 

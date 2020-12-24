@@ -18,8 +18,14 @@ private:
 	cv_image<unsigned char> frame;
 	full_object_detection landmarks;
 	Calibration calibration;
+	long originX;
+	long originY;
+	double centerX;
+	double centerY;
 	void isolate(cv_image<unsigned char> frame, full_object_detection landmarks, int inputs[6]);
 	double middle_point(long a, long b);
 	void analyze(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration);
 	double blinking_ratio(full_object_detection landmarks, int inputs[6]);
+	long getOriginX();
+	long getOriginY();
 };
