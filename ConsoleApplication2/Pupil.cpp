@@ -38,22 +38,23 @@ bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point>
 {
 	double i = fabs(contourArea(cv::Mat(contour1)));
 	double j = fabs(contourArea(cv::Mat(contour2)));
-	return (i < j);
+	return (i <= j);
 }
 
 void Pupil::detect_iris(cv::Mat eye_frame)
 {
 	iris_frame = image_processing(eye_frame, this->thresh_hold);
-	cv::imwrite("eye_frame.png", eye_frame);
-	cv::imwrite("iris_frame.png", iris_frame);
 	std::vector<std::vector<cv::Point> > contours;
 	cv::findContours(eye_frame, contours, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
+	auto size = contours.size();
 
 	std::sort(contours.begin(), contours.end(), compareContourAreas);
 
-	std::vector<cv::Point> lastTwoContour = contours[contours.size() - 2];
+	if (size == 0)
+		return;
+	std::vector<cv::Point> bestContour = contours[contours.size() - 1];
 	
-	auto moments = cv::moments(lastTwoContour);
+	auto moments = cv::moments(bestContour);
 	if (moments.m00 == 0)
 		return;
 	x = moments.m10 / moments.m00;
