@@ -1,4 +1,5 @@
 #include "Calibration.h"
+#include "Pupil.h"
 
 Calibration::Calibration()
 {
@@ -12,6 +13,13 @@ bool Calibration::is_complete()
 double Calibration::find_best_threshold(cv::Mat frame)
 {
 	double average_iris_size = 0.48;
+	std::map<int, double> trials;
+
+	for (int i = 5; i < 100; i += 5) {
+		auto iris_frame = Pupil::image_processing(frame, i);
+		trials.insert(std::pair<int, double>(i, Pupil::iris_size(iris_frame)));
+	}
+
 	return 0.0;
 }
 
