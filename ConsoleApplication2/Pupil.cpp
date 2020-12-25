@@ -32,7 +32,7 @@ double Pupil::getY()
 	return y;
 }
 
-bool Pupil::compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point> contour2)
+bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point> contour2)
 {
 	double i = fabs(contourArea(cv::Mat(contour1)));
 	double j = fabs(contourArea(cv::Mat(contour2)));
