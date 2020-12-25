@@ -33,7 +33,6 @@ double Calibration::find_best_threshold(cv::Mat frame)
 
 double Calibration::iris_size(cv::Mat frame)
 {
-	//cv::imwrite("before.png", frame);
 	cv::Mat new_frame(frame, cv::Rect(cv::Point(5, 5), cv::Point(frame.cols - 5, frame.rows - 5)));
 
 	auto height = new_frame.rows;
@@ -41,8 +40,8 @@ double Calibration::iris_size(cv::Mat frame)
 
 	auto nb_pixels = height * width;
 	auto nb_blacks = nb_pixels - cv::countNonZero(new_frame);
-	//cv::imwrite("new_frame.png",new_frame);
-	return nb_blacks / nb_pixels;
+
+	return (double)nb_blacks / nb_pixels;
 }
 
 int Calibration::threshold(int side)

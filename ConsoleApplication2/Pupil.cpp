@@ -1,9 +1,11 @@
 #include "Pupil.h"
-#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 Pupil::Pupil(cv_image<unsigned char> eye_frame, int thresh_hold)
 {
 	this->thresh_hold = thresh_hold;
+	detect_iris(dlib::toMat(eye_frame));
 }
 
 Pupil::Pupil()
@@ -42,6 +44,8 @@ bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point>
 void Pupil::detect_iris(cv::Mat eye_frame)
 {
 	iris_frame = image_processing(eye_frame, this->thresh_hold);
+	cv::imwrite("eye_frame.png", eye_frame);
+	cv::imwrite("iris_frame.png", iris_frame);
 	std::vector<std::vector<cv::Point> > contours;
 	cv::findContours(eye_frame, contours, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
 
