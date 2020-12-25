@@ -22,11 +22,6 @@ cv::Mat Pupil::image_processing(cv::Mat eye_frame, int thresh_hold)
 	return threshhold;
 }
 
-double Pupil::iris_size(cv::Mat frame)
-{
-	return 0.0;
-}
-
 double Pupil::getX()
 {
 	return x;

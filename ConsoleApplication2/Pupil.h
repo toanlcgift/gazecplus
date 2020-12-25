@@ -8,7 +8,6 @@ public:
 	Pupil(cv_image<unsigned char> eye_frame, int thresh_hold);
 	Pupil();
 	static cv::Mat image_processing(cv::Mat eye_frame, int thresh_hold);
-	static double iris_size(cv::Mat frame);
 	double getX();
 	double getY();
 private:

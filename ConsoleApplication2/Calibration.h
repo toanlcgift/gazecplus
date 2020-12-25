@@ -10,7 +10,7 @@ public:
 	int threshold(int side);
 private:
 	double find_best_threshold(cv::Mat frame);
-	double iris_size(cv::Mat frame);
+	static double iris_size(cv::Mat frame);
 	int nb_frames = 20;
 	std::vector<double> thresholds_left;
 	std::vector<double> thresholds_right;
