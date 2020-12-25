@@ -54,13 +54,13 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 	long min_y = *min_element(yArrays.begin(), yArrays.end()) - margin;
 	long max_y = *max_element(yArrays.begin(), yArrays.end()) + margin;
 
-	cv::Mat eye_frame(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
+	this->eye_frame= cv::Mat(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
 
 	originX = min_x;
 	originY = min_y;
 
-	auto croppedHeight = eye_frame.rows;
-	auto croppedWidth = eye_frame.cols;
+	auto croppedHeight = this->eye_frame.rows;
+	auto croppedWidth = this->eye_frame.cols;
 
 	centerX = (double)(croppedWidth / 2);
 	centerY = (double)(croppedHeight / 2);
@@ -128,6 +128,13 @@ void Eye::analyze(cv_image<unsigned char> frame, full_object_detection landmarks
 	if (!calibration.is_complete()) {
 		calibration.evaluate(eye_frame, side);
 	}
+	auto threshold = calibration.threshold(side);
+	pupil = Pupil(eye_frame, threshold);
+}
+
+Pupil Eye::getPupil()
+{
+	return pupil;
 }
 
 
