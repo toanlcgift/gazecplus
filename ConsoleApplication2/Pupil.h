@@ -14,4 +14,8 @@ public:
 private:
 	double x;
 	double y;
+	cv::Mat iris_frame;
+	int thresh_hold;
+	bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point> contour2);
+	void detect_iris(cv::Mat eye_frame);
 };
