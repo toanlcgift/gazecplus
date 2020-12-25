@@ -70,10 +70,10 @@ int main()
 			temp = cv::imread("trump.jpg", 1);
 			cv::Mat output;
 			cv::cvtColor(temp, output, cv::COLOR_BGR2GRAY);
-			
+
 			//cv::Mat frame;
 			//cv::cvtColor(temp, frame, cv::COLOR_BGR2GRAY);
-			
+
 			// Turn OpenCV's Mat into something dlib can deal with.  Note that this just
 			// wraps the Mat object, it doesn't copy anything.  So cimg is only valid as
 			// long as temp is valid.  Also don't do anything to temp that would cause it
@@ -100,6 +100,17 @@ int main()
 			for (unsigned long i = 0; i < faces.size(); ++i) {
 				gaze.setEyeLeft(Eye(cimg, pose_model(cimg, faces[i]), 0, gaze.getCalibration()));
 				gaze.setEyeRight(Eye(cimg, pose_model(cimg, faces[i]), 1, gaze.getCalibration()));
+
+				auto x_left = gaze.getEyeLeft().getOriginX() + gaze.getEyeLeft().getPupil().getX();
+				auto y_left = gaze.getEyeLeft().getOriginY() + gaze.getEyeLeft().getPupil().getY();
+				auto x_right = gaze.getEyeRight().getOriginX() + gaze.getEyeRight().getPupil().getX();
+				auto y_right = gaze.getEyeRight().getOriginY() + gaze.getEyeRight().getPupil().getY();
+
+				cv::line(temp, cv::Point(x_left - 5, y_left), cv::Point(x_left + 5, y_left), cv::Scalar(0, 255, 0));
+				cv::line(temp, cv::Point(x_left, y_left - 5), cv::Point(x_left, y_left + 5), cv::Scalar(0, 255, 0));
+				cv::line(temp, cv::Point(x_right - 5, y_right), cv::Point(x_right + 5, y_right), cv::Scalar(0, 255, 0));
+				cv::line(temp, cv::Point(x_right, y_right - 5), cv::Point(x_right, y_right + 5), cv::Scalar(0, 255, 0));
+				cv::imwrite("vai.png", temp);
 				shapes.push_back(pose_model(cimg, faces[i]));
 			}
 			// Display it all on the screen

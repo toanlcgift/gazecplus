@@ -128,6 +128,13 @@ void Eye::analyze(cv_image<unsigned char> frame, full_object_detection landmarks
 	if (!calibration.is_complete()) {
 		calibration.evaluate(eye_frame, side);
 	}
+	auto threshold = calibration.threshold(side);
+	pupil = Pupil(eye_frame, threshold);
+}
+
+Pupil Eye::getPupil()
+{
+	return pupil;
 }
 
 

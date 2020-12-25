@@ -7,10 +7,10 @@ public:
 	Calibration();
 	bool is_complete();
 	void evaluate(cv::Mat frame, int side);
+	int threshold(int side);
 private:
 	double find_best_threshold(cv::Mat frame);
 	double iris_size(cv::Mat frame);
-	int threshold(int side);
 	int nb_frames = 20;
 	std::vector<double> thresholds_left;
 	std::vector<double> thresholds_right;

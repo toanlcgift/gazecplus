@@ -1,6 +1,7 @@
 #include <dlib/opencv.h>
 #include <dlib/image_processing.h>
 #include "Calibration.h"
+#include "Pupil.h"
 
 using namespace dlib;
 
@@ -13,6 +14,7 @@ public:
 	long getOriginY();
 	double getCenterX();
 	double getCenterY();
+	Pupil getPupil();
 
 private:
 	int leftpoints[6] = { 36, 37, 38, 39, 40, 41 };
@@ -27,6 +29,7 @@ private:
 	double centerX;
 	double centerY;
 	cv::Mat eye_frame;
+	Pupil pupil;
 	void isolate(cv_image<unsigned char> frame, full_object_detection landmarks, int inputs[6]);
 	double middle_point(long a, long b);
 	void analyze(cv_image<unsigned char> frame, full_object_detection landmarks, int side, Calibration calibration);

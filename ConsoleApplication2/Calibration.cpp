@@ -15,7 +15,7 @@ double Calibration::find_best_threshold(cv::Mat frame)
 	double average_iris_size = 0.48;
 	double min_iris_size = 100;
 	std::map<int, double> trials;
-	int best_thresh_hold;
+	int best_thresh_hold = 0;
 
 	for (int i = 5; i < 100; i += 5) {
 		auto iris_frame = Pupil::image_processing(frame, i);
