@@ -31,9 +31,13 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 
 	std::vector<std::vector<cv::Point>> imagePoints;
 	std::vector<cv::Point> points;
+	std::vector<long> xArrays;
+	std::vector<long> yArrays;
 
 	for (int i = 0; i < 6; i++) {
 		points.push_back(cv::Point(landmarks.part(inputs[i]).x(), landmarks.part(inputs[i]).y()));
+		xArrays.push_back(landmarks.part(inputs[i]).x());
+		yArrays.push_back(landmarks.part(inputs[i]).y());
 	}
 	imagePoints.push_back(points);
 	cv::fillPoly(mask, imagePoints, cv::Scalar(0, 0, 0));
@@ -42,6 +46,46 @@ void Eye::isolate(cv_image<unsigned char> frame, full_object_detection landmarks
 	cv::Mat eye;
 	frameCV.copyTo(eye);
 	cv::bitwise_not(black_image, eye, mask);
+
+	long margin = 5;
+
+	long min_x = *min_element(xArrays.begin(), xArrays.end()) - margin;
+	long max_x = *max_element(xArrays.begin(), xArrays.end()) + margin;
+	long min_y = *min_element(yArrays.begin(), yArrays.end()) - margin;
+	long max_y = *max_element(yArrays.begin(), yArrays.end()) + margin;
+
+	cv::Mat eye_frame(eye, cv::Rect(cv::Point(min_x, min_y), cv::Point(max_x, max_y)));
+
+	originX = min_x;
+	originY = min_y;
+
+	auto croppedHeight = eye_frame.rows;
+	auto croppedWidth = eye_frame.cols;
+
+	centerX = (double)(croppedWidth / 2);
+	centerY = (double)(croppedHeight / 2);
+
+	//cv::imwrite("cropped.png", cropped);
+}
+
+long Eye::getOriginX()
+{
+	return originX;
+}
+
+long Eye::getOriginY()
+{
+	return originY;
+}
+
+double Eye::getCenterX()
+{
+	return centerX;
+}
+
+double Eye::getCenterY()
+{
+	return centerY;
 }
 
 
@@ -81,6 +125,9 @@ void Eye::analyze(cv_image<unsigned char> frame, full_object_detection landmarks
 	}
 	blinking = blinking_ratio(landmarks, points);
 	isolate(frame, landmarks, points);
+	if (!calibration.is_complete()) {
+		calibration.evaluate(eye_frame, side);
+	}
 }
 
 
