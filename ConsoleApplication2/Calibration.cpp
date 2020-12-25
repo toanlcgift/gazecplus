@@ -13,22 +13,36 @@ bool Calibration::is_complete()
 double Calibration::find_best_threshold(cv::Mat frame)
 {
 	double average_iris_size = 0.48;
+	double min_iris_size = 100;
 	std::map<int, double> trials;
+	int best_thresh_hold;
 
 	for (int i = 5; i < 100; i += 5) {
 		auto iris_frame = Pupil::image_processing(frame, i);
-		trials.insert(std::pair<int, double>(i, Pupil::iris_size(iris_frame)));
+		double iris_size = Pupil::iris_size(iris_frame);
+		double abs_value = std::abs(iris_size - average_iris_size);
+		if (abs_value <= min_iris_size) {
+			min_iris_size = abs_value;
+			best_thresh_hold = i;
+		}
+		trials.insert(std::pair<int, double>(i, iris_size));
 	}
 
-	return 0.0;
+	return best_thresh_hold;
 }
 
 double Calibration::iris_size(cv::Mat frame)
 {
 
 	cv::Mat new_frame(frame, cv::Rect(cv::Point(5, 5), cv::Point(-5, -5)));
+
+	auto height = new_frame.rows;
+	auto width = new_frame.cols;
+
+	auto nb_pixels = height * width;
+	auto nb_blacks = nb_pixels - cv::countNonZero(new_frame);
 	//cv::imwrite("new_frame.png",new_frame);
-	return 0.0;
+	return nb_blacks / nb_pixels;
 }
 
 int Calibration::threshold(int side)
