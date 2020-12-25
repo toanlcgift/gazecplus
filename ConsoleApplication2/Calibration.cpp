@@ -33,8 +33,8 @@ double Calibration::find_best_threshold(cv::Mat frame)
 
 double Calibration::iris_size(cv::Mat frame)
 {
-
-	cv::Mat new_frame(frame, cv::Rect(cv::Point(5, 5), cv::Point(-5, -5)));
+	//cv::imwrite("before.png", frame);
+	cv::Mat new_frame(frame, cv::Rect(cv::Point(5, 5), cv::Point(frame.cols - 5, frame.rows - 5)));
 
 	auto height = new_frame.rows;
 	auto width = new_frame.cols;
