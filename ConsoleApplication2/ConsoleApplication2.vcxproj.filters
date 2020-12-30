@@ -32,7 +32,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="trump.jpg">
+    <Image Include="test.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -67,7 +67,7 @@ int main()
 			{
 				break;
 			}*/
-			temp = cv::imread("trump.jpg", 1);
+			temp = cv::imread("test.jpg", 1);
 			cv::Mat output;
 			cv::cvtColor(temp, output, cv::COLOR_BGR2GRAY);
 
@@ -110,7 +110,6 @@ int main()
 				cv::line(temp, cv::Point(x_left, y_left - 5), cv::Point(x_left, y_left + 5), cv::Scalar(0, 255, 0));
 				cv::line(temp, cv::Point(x_right - 5, y_right), cv::Point(x_right + 5, y_right), cv::Scalar(0, 255, 0));
 				cv::line(temp, cv::Point(x_right, y_right - 5), cv::Point(x_right, y_right + 5), cv::Scalar(0, 255, 0));
-				cv::imwrite("vai.png", temp);
 				shapes.push_back(pose_model(cimg, faces[i]));
 			}
 			// Display it all on the screen
