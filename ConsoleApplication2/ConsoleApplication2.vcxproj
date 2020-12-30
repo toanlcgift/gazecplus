@@ -153,9 +153,7 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="trump.jpg">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-    </Image>
+    <Image Include="test.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calibration.h" />
