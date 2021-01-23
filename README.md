@@ -4,7 +4,7 @@ C++ version of https://github.com/antoinelame/GazeTracking
 
 - this feature can working on both android & ios.
 
-- Android & ios version are not public
+- Android & ios version are not public yet.
 
 ## Setup
 
